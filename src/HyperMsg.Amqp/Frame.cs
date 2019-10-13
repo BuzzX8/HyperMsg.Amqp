@@ -5,19 +5,19 @@
         internal Frame(FrameType type, DescribedList body, ushort channel = 0)
         {
             Type = type;
-	        Body = body;
-	        Channel = channel;
+            Body = body;
+            Channel = channel;
         }
 
         public FrameType Type { get; }
 
-        public ushort Channel { get; }        
+        public ushort Channel { get; }
 
         public DescribedList Body { get; }
 
         public static Frame Amqp(DescribedList body, ushort channel = 0)
         {
-	        return new Frame(FrameType.Amqp, body, channel);
+            return new Frame(FrameType.Amqp, body, channel);
         }
 
         public static Frame Sasl(DescribedList body)

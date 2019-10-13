@@ -20,10 +20,10 @@ namespace HyperMsg.Amqp
         {
             get
             {
-	            if (!values.ContainsKey(i))
-	            {
-		            return null;
-	            }
+                if (!values.ContainsKey(i))
+                {
+                    return null;
+                }
 
                 return values[i];
             }
@@ -40,7 +40,7 @@ namespace HyperMsg.Amqp
         {
             int i = 0;
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 this[i] = item;
                 i++;

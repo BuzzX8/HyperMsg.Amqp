@@ -11,7 +11,7 @@
         public static readonly Descriptor Flow = new Descriptor(0x0000000000000013, "amqp:flow:list");
 
         public static readonly Descriptor Error = new Descriptor(0x000000000000001d, "amqp:error:list");
-        
+
         public static readonly Descriptor SaslMechanisms = new Descriptor(0x0000000000000040, "amqp:sasl-mechanisms:list");
         public static readonly Descriptor SaslInit = new Descriptor(0x0000000000000041, "amqp:sasl-init:list");
         public static readonly Descriptor SaslChallenge = new Descriptor(0x0000000000000042, "amqp:sasl-challenge:list");
