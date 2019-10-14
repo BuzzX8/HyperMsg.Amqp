@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9666A4D6-5FE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMsg.Amqp", "src\HyperMsg.Amqp\HyperMsg.Amqp.csproj", "{30F2A38C-EBF0-4B71-A476-25E9F221B0BA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMsg.Amqp.Serialization", "src\HyperMsg.Amqp.Serialization\HyperMsg.Amqp.Serialization.csproj", "{BC5C6216-2019-44BA-806F-533CD3D2149C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,25 @@ Global
 		{30F2A38C-EBF0-4B71-A476-25E9F221B0BA}.Release|x64.Build.0 = Release|Any CPU
 		{30F2A38C-EBF0-4B71-A476-25E9F221B0BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{30F2A38C-EBF0-4B71-A476-25E9F221B0BA}.Release|x86.Build.0 = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|x64.Build.0 = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Debug|x86.Build.0 = Debug|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|x64.ActiveCfg = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|x64.Build.0 = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|x86.ActiveCfg = Release|Any CPU
+		{BC5C6216-2019-44BA-806F-533CD3D2149C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{30F2A38C-EBF0-4B71-A476-25E9F221B0BA} = {9666A4D6-5FE8-4334-BAD5-28EBF663D3B5}
+		{BC5C6216-2019-44BA-806F-533CD3D2149C} = {9666A4D6-5FE8-4334-BAD5-28EBF663D3B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3A7D113-98EB-4F82-BBB6-0D44327277BD}
