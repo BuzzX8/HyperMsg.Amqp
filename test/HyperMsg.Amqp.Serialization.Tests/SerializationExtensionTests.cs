@@ -37,14 +37,14 @@ namespace HyperMsg.Amqp.Serialization
             yield return GetTestCaseForWrite(w => w.WriteUShort(random[4]), TypeCodes.UShort, 0, random[4]);
             yield return GetTestCaseForWrite(w => w.WriteInt((sbyte)random[5]), TypeCodes.SmallInt, random[5]);
             yield return GetTestCaseForWrite(w => w.WriteInt(0x4050), TypeCodes.Int, 0, 0, 0x40, 0x50);
-            //yield return GetTestCaseForWrite(w => w.WriteUInt(0), TypeCodes.UInt0);
-            //yield return GetTestCaseForWrite(w => w.WriteUInt(random[5]), TypeCodes.SmallUInt, random[5]);
-            //yield return GetTestCaseForWrite(w => w.WriteUInt(0x8090), TypeCodes.UInt, 0, 0, 0x80, 0x90);
-            //yield return GetTestCaseForWrite(w => w.WriteLong((sbyte)random[6]), TypeCodes.SmallLong, random[6]);
-            //yield return GetTestCaseForWrite(w => w.WriteLong(0x10203040L), TypeCodes.Long, 0, 0, 0, 0, 0x10, 0x20, 0x30, 0x40);
-            //yield return GetTestCaseForWrite(w => w.WriteULong(0), TypeCodes.ULong0);
-            //yield return GetTestCaseForWrite(w => w.WriteULong(random[6]), TypeCodes.SmallULong, random[6]);
-            //yield return GetTestCaseForWrite(w => w.WriteULong(0x10203040L), TypeCodes.ULong, 0, 0, 0, 0, 0x10, 0x20, 0x30, 0x40);
+            yield return GetTestCaseForWrite(w => w.WriteUInt(0), TypeCodes.UInt0);
+            yield return GetTestCaseForWrite(w => w.WriteUInt(random[5]), TypeCodes.SmallUInt, random[5]);
+            yield return GetTestCaseForWrite(w => w.WriteUInt(0x8090), TypeCodes.UInt, 0, 0, 0x80, 0x90);
+            yield return GetTestCaseForWrite(w => w.WriteLong((sbyte)random[6]), TypeCodes.SmallLong, random[6]);
+            yield return GetTestCaseForWrite(w => w.WriteLong(0x10203040L), TypeCodes.Long, 0, 0, 0, 0, 0x10, 0x20, 0x30, 0x40);
+            yield return GetTestCaseForWrite(w => w.WriteULong(0), TypeCodes.ULong0);
+            yield return GetTestCaseForWrite(w => w.WriteULong(random[6]), TypeCodes.SmallULong, random[6]);
+            yield return GetTestCaseForWrite(w => w.WriteULong(0x10203040L), TypeCodes.ULong, 0, 0, 0, 0, 0x10, 0x20, 0x30, 0x40);
 
             //var uuid = Guid.NewGuid();
             //yield return GetTestCaseForWrite(w => w.WriteUuid(uuid), GetUuidBytes(uuid));
