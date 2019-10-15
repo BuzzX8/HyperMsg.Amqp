@@ -46,27 +46,27 @@ namespace HyperMsg.Amqp.Serialization
             yield return GetTestCaseForWrite(w => w.WriteULong(random[6]), TypeCodes.SmallULong, random[6]);
             yield return GetTestCaseForWrite(w => w.WriteULong(0x10203040L), TypeCodes.ULong, 0, 0, 0, 0, 0x10, 0x20, 0x30, 0x40);
 
-            //var uuid = Guid.NewGuid();
-            //yield return GetTestCaseForWrite(w => w.WriteUuid(uuid), GetUuidBytes(uuid));
+            var uuid = Guid.NewGuid();
+            yield return GetTestCaseForWrite(w => w.WriteUuid(uuid), GetUuidBytes(uuid));
 
-            //float floatValue = BitConverter.ToSingle(random, 0);
-            //yield return GetTestCaseForWrite(w => w.WriteFloat(floatValue), GetFloatBytes(floatValue));
-            //double doubleValue = BitConverter.ToDouble(random, 0);
-            //yield return GetTestCaseForWrite(w => w.WriteDouble(doubleValue), GetDoubleBytes(doubleValue));
+            float floatValue = BitConverter.ToSingle(random, 0);
+            yield return GetTestCaseForWrite(w => w.WriteFloat(floatValue), GetFloatBytes(floatValue));
+            double doubleValue = BitConverter.ToDouble(random, 0);
+            yield return GetTestCaseForWrite(w => w.WriteDouble(doubleValue), GetDoubleBytes(doubleValue));
 
-            //yield return GetTestCaseForWrite(w => w.WriteChar('G'), GetCharBytes('G'));
+            yield return GetTestCaseForWrite(w => w.WriteChar('G'), GetCharBytes('G'));
 
-            //var str8 = Guid.NewGuid().ToString();
+            var str8 = Guid.NewGuid().ToString();
             //yield return GetTestCaseForWrite(w => w.WriteSymbolic(str8), GetStringBytes(TypeCodes.Sym8, str8, Encoding.ASCII));
             //yield return GetTestCaseForWrite(w => w.WriteString(str8), GetStringBytes(TypeCodes.Str8, str8, Encoding.UTF8));
             //var str32 = Enumerable.Range(0, byte.MaxValue).Aggregate(str8, (s, i) => s + str8);
             //yield return GetTestCaseForWrite(w => w.WriteSymbolic(str32), GetStringBytes(TypeCodes.Sym32, str32, Encoding.ASCII));
             //yield return GetTestCaseForWrite(w => w.WriteString(str32), GetStringBytes(TypeCodes.Str32, str32, Encoding.UTF8));
 
-            //var timestamp = DateTime.UtcNow;
-            //yield return GetTestCaseForWrite(w => w.WriteTimestamp(timestamp), GetTimestampBytes(timestamp));
+            var timestamp = DateTime.UtcNow;
+            yield return GetTestCaseForWrite(w => w.WriteTimestamp(timestamp), GetTimestampBytes(timestamp));
 
-            //yield return GetTestCaseForWrite(w => w.WriteList(new int[0]), TypeCodes.List0);
+            yield return GetTestCaseForWrite(w => w.WriteList(new int[0]), TypeCodes.List0);
             //yield return GetTestCaseForWrite(w => w.WriteList(random.Take(3).ToList()), TypeCodes.List8, 6, 3,
             //    TypeCodes.UByte, random[0], TypeCodes.UByte, random[1], TypeCodes.UByte, random[2]);
         }

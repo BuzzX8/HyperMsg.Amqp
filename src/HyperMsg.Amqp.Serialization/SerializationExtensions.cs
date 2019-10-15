@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Buffers;
 using System.Buffers.Binary;
+using System.Collections;
+using System.Text;
 
 namespace HyperMsg.Amqp.Serialization
 {
@@ -92,6 +94,59 @@ namespace HyperMsg.Amqp.Serialization
 
             BinaryPrimitives.WriteUInt64BigEndian(GetSpanForValue(writer, TypeCodes.ULong, sizeof(ulong)), value);
             writer.Advance(sizeof(ulong) + 1);
+        }
+
+        public static void WriteUuid(this IBufferWriter<byte> writer, Guid value) => writer.WriteBytesAndAdvance(TypeCodes.Uuid, value.ToByteArray());
+
+        public static void WriteFloat(this IBufferWriter<byte> writer, float value) => writer.WriteBytesAndAdvance(TypeCodes.Float, BitConverter.GetBytes(value));
+
+        public static void WriteDouble(this IBufferWriter<byte> writer, double value) => writer.WriteBytesAndAdvance(TypeCodes.Double, BitConverter.GetBytes(value));
+
+        public static void WriteChar(this IBufferWriter<byte> writer, char value) => writer.WriteBytesAndAdvance(TypeCodes.Char, Encoding.UTF8.GetBytes(value.ToString()));
+
+        public static void WriteSymbolic(this IBufferWriter<byte> writer, Symbol value) => WriteString(writer, value, TypeCodes.Sym8, TypeCodes.Sym32, Encoding.ASCII);
+
+        public static void WriteTimestamp(this IBufferWriter<byte> writer, DateTime value)
+        {
+            var unixTime = value.Subtract(new DateTime(1970, 1, 1));
+            writer.WriteBytesAndAdvance(TypeCodes.Timestamp, BitConverter.GetBytes((ulong)unixTime.TotalMilliseconds));
+        }
+
+        public static void WriteList(this IBufferWriter<byte> writer, IList value)
+        {
+            if (value.Count == 0)
+            {
+                writer.WriteCodeAndAdvance(TypeCodes.List0);
+                return;
+            }
+        }
+
+        private static void WriteString(IBufferWriter<byte> writer, string value, byte code8, byte code32, Encoding encoding)
+        {
+            var strBytes = encoding.GetBytes(value);
+            int length = value.Length;
+            Span<byte> span;
+            
+            if (length <= byte.MaxValue)
+            {
+                span = writer.GetSpan(strBytes.Length + 2);
+                span[0] = code8;
+                span[1] = (byte)value.Length;
+            }
+            else
+            {
+                //writer.Write(code32);
+                //writer.Write(length);
+            }
+            
+            //writer.Write(strBytes, 0, strBytes.Length);
+        }
+
+        private static void WriteBytesAndAdvance(this IBufferWriter<byte> writer, byte code, byte[] value)
+        {
+            var span = GetSpanForValue(writer, code, value.Length);
+            value.CopyTo(span);
+            writer.Advance(value.Length + 1);
         }
 
         private static void WriteCodeAndAdvance(this IBufferWriter<byte> writer, byte code)
