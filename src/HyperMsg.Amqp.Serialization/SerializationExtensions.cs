@@ -18,34 +18,52 @@ namespace HyperMsg.Amqp.Serialization
 
         public static void WriteBoolean(this IBufferWriter<byte> writer, bool value)
         {
-            var span = writer.GetSpan(2);
-            span[0] = TypeCodes.Boolean;
-            span[1] = Convert.ToByte(value);
-            writer.Advance(2);
+            GetSpanForValue(writer, TypeCodes.Boolean, sizeof(byte))[0] = Convert.ToByte(value);
+            writer.Advance(sizeof(byte) + 1);
         }
 
         public static void WriteUByte(this IBufferWriter<byte> writer, byte value)
         {
-            var span = writer.GetSpan(2);
-            span[0] = TypeCodes.UByte;
-            span[1] = value;
-            writer.Advance(2);
+            GetSpanForValue(writer, TypeCodes.UByte, sizeof(byte))[0] = value;
+            writer.Advance(sizeof(byte) + 1);
         }
 
         public static void WriteByte(this IBufferWriter<byte> writer, sbyte value)
         {
-            var span = writer.GetSpan(2);
-            span[0] = TypeCodes.Byte;
-            span[1] = (byte)value;
-            writer.Advance(2);
+            GetSpanForValue(writer, TypeCodes.Byte, sizeof(sbyte))[0] = (byte)value;
+            writer.Advance(sizeof(sbyte) + 1);
         }
 
         public static void WriteShort(this IBufferWriter<byte> writer, short value)
         {
-            var span = writer.GetSpan(sizeof(short) + 1);
-            span[0] = TypeCodes.Short;
-            BinaryPrimitives.WriteInt16BigEndian(span.Slice(1), value);
+            BinaryPrimitives.WriteInt16BigEndian(GetSpanForValue(writer, TypeCodes.Short, sizeof(short)), value);
             writer.Advance(sizeof(short) + 1);
+        }
+
+        public static void WriteUShort(this IBufferWriter<byte> writer, ushort value)
+        {
+            BinaryPrimitives.WriteUInt16BigEndian(GetSpanForValue(writer, TypeCodes.UShort, sizeof(ushort)), value);
+            writer.Advance(sizeof(ushort) + 1);
+        }
+
+        public static void WriteInt(this IBufferWriter<byte> writer, int value)
+        {
+            if (value >= sbyte.MinValue && value <= sbyte.MaxValue)
+            {
+                GetSpanForValue(writer, TypeCodes.SmallInt, sizeof(byte))[0] = (byte)value;
+                writer.Advance(sizeof(byte) + 1);
+                return;
+            }
+
+            BinaryPrimitives.WriteInt32BigEndian(GetSpanForValue(writer, TypeCodes.Int, sizeof(int)), value);
+            writer.Advance(sizeof(int) + 1);
+        }
+
+        private static Span<byte> GetSpanForValue(IBufferWriter<byte> writer, byte code, int size)
+        {
+            var span = writer.GetSpan(size + 1);
+            span[0] = code;
+            return span.Slice(1);
         }
     }
 }

@@ -34,9 +34,9 @@ namespace HyperMsg.Amqp.Serialization
             yield return GetTestCaseForWrite(w => w.WriteUByte(random[0]), TypeCodes.UByte, random[0]);
             yield return GetTestCaseForWrite(w => w.WriteByte((sbyte)random[1]), TypeCodes.Byte, random[1]);
             yield return GetTestCaseForWrite(w => w.WriteShort(random[3]), TypeCodes.Short, 0, random[3]);
-            //yield return GetTestCaseForWrite(w => w.WriteUShort(random[4]), TypeCodes.UShort, 0, random[4]);
-            //yield return GetTestCaseForWrite(w => w.WriteInt((sbyte)random[5]), TypeCodes.SmallInt, random[5]);
-            //yield return GetTestCaseForWrite(w => w.WriteInt(0x4050), TypeCodes.Int, 0, 0, 0x40, 0x50);
+            yield return GetTestCaseForWrite(w => w.WriteUShort(random[4]), TypeCodes.UShort, 0, random[4]);
+            yield return GetTestCaseForWrite(w => w.WriteInt((sbyte)random[5]), TypeCodes.SmallInt, random[5]);
+            yield return GetTestCaseForWrite(w => w.WriteInt(0x4050), TypeCodes.Int, 0, 0, 0x40, 0x50);
             //yield return GetTestCaseForWrite(w => w.WriteUInt(0), TypeCodes.UInt0);
             //yield return GetTestCaseForWrite(w => w.WriteUInt(random[5]), TypeCodes.SmallUInt, random[5]);
             //yield return GetTestCaseForWrite(w => w.WriteUInt(0x8090), TypeCodes.UInt, 0, 0, 0x80, 0x90);
@@ -135,10 +135,11 @@ namespace HyperMsg.Amqp.Serialization
         [MemberData(nameof(GetTestCasesForWrite))]
         public void Write_Extension_Correctly_Serializes_Value(Action<IBufferWriter<byte>> write, byte[] expected)
         {
+            var writer = new ByteBufferWriter(buffer);
             write.Invoke(writer);
 
             Assert.Equal(expected, buffer.Slice(0, expected.Length).ToArray());
-            A.CallTo(() => writer.Advance(expected.Length)).MustHaveHappened();
+            Assert.Equal(expected.Length, writer.Position);
         }
     }
 }
